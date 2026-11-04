@@ -24,6 +24,8 @@ const toJapanese = {
   "Education": "学歴",
   "Grants & fellowships": "研究助成・支援",
   "Talks & activities": "講演・活動",
+  "Events & exhibitions": "イベント・展示",
+  "Media & interviews": "メディア・インタビュー",
   "Back to top": "ページ上部へ"
 };
 
@@ -37,6 +39,12 @@ const toEnglish = {
   "2025年3月": "Mar 2025",
   "2024年2月": "Feb 2024",
   "2023年12月": "Dec 2023",
+  "2026年2月11日": "Feb 11, 2026",
+  "2025年11月10日": "Nov 10, 2025",
+  "2025年7月31日": "Jul 31, 2025",
+  "2025年2月11日": "Feb 11, 2025",
+  "2024年11月17日": "Nov 17, 2024",
+  "2024年9月20日": "Sep 20, 2024",
   "2022年4月": "Apr 2022",
   "2021年3月": "Mar 2021",
   "2018年2月": "Feb 2018",
@@ -97,7 +105,15 @@ const toEnglish = {
   "2025年度・2年間": "FY2025, 2 years",
   "世界網膜の日2026 受賞講演": "Award lecture, World Retina Day 2026",
   "筑波大学 情報学学位プログラム説明会 学生スピーカー": "Student speaker, Informatics program information session, University of Tsukuba",
-  "SIGGRAPH 2023 Birds of a Feather on GenAI — NVIDIA 社主催": "SIGGRAPH 2023 Birds of a Feather on GenAI — hosted by NVIDIA"
+  "SIGGRAPH 2023 Birds of a Feather on GenAI — NVIDIA 社主催": "SIGGRAPH 2023 Birds of a Feather on GenAI — hosted by NVIDIA",
+  "「ちがい」×AI ～さわって、ためして、研究者とはなそう！ — Low Vision Kick Boxing 展示 ↗": "Difference × AI: Touch, Try, and Talk with Researchers — Low Vision Kick Boxing exhibition ↗",
+  "さわれる絵をつくって伝え合おう！ — 日本科学未来館 ↗": "Create and Share Tactile Pictures — Miraikan ↗",
+  "チャレスポ！TOKYO — パラ×テクノロジー体感展「Low Vision Boxing」招待ブース展示 ↗": "Challespo! TOKYO — invited Low Vision Boxing exhibit at Para × Technology Experience ↗",
+  "主催：東京都・東京都障害者スポーツ協会": "Organized by Tokyo Metropolitan Government and Tokyo Sports Association for the Disabled",
+  "東京タワー スポーツチャレンジ2024 — Low Vision Boxing ↗": "Tokyo Tower Sports Challenge 2024 — Low Vision Boxing ↗",
+  "主催：NPO日本未来基金": "Organized by Japan Future Foundation (NPO)",
+  "【ゼロワン】世界初！視覚障がい者のためのキックボクシング試合が開催　グローブにLED — 東スポWEB ↗": "World-first kickboxing match for visually impaired athletes, with LED gloves — Tokyo Sports Web ↗",
+  "【め #38】弱視者のスポーツアクセシビリティの拡大「Low Vision Boxing」 ↗": "Me #38: Expanding sports accessibility for people with low vision — Low Vision Boxing ↗"
 };
 
 const altEnglish = {

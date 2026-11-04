@@ -53,6 +53,7 @@ const toEnglish = {
   "ロービジョンの人と共に設計したキックボクシング体験。": "A kickboxing experience designed with people with low vision.",
   "集束超音波を用いて、アクリル板に触れられる凹凸をつくる研究。": "Creating tactile embossments on acrylic sheets using focused ultrasound.",
   "生成AIとデジタルファブリケーションを活用した、触れる絵本の制作。": "Creating tactile picture books with generative AI and digital fabrication.",
+  "ロービジョンの参列者が披露宴の様子や場所を把握できるよう、映像配信と音響で支援する研究。": "Supporting guests with low vision at a wedding reception through live video and spatial audio.",
   "ドローンを球として用いる、ロービジョンの人も参加できるバドミントン。": "Badminton using a drone as the shuttlecock, designed for players with low vision.",
   "最優秀賞": "Grand Prize",
   "— 第29回学生CGコンテスト インタラクション部門 / Low Vision Boxing": "— 29th Campus Genius Contest, Interaction Division / Low Vision Boxing",
@@ -110,6 +111,7 @@ const altEnglish = {
   "発光する装具を着けて向かい合う二人のボクサー": "Two boxers facing each other while wearing illuminated equipment",
   "「HI」の文字が写る透明なアクリル板と超音波加工装置": "Transparent acrylic sheet showing the letters HI beside the ultrasonic embossing setup",
   "触覚グラフィックスを印刷した絵本に手で触れている様子": "Hands exploring a picture book printed with tactile graphics",
+  "タブレットで披露宴の映像を見る新郎": "A groom viewing the wedding reception on a tablet",
   "リング状のラケットの中央を飛ぶドローン": "A drone flying through a ring-shaped racket"
 };
 

@@ -24,8 +24,6 @@ const toJapanese = {
   "Education": "学歴",
   "Grants & fellowships": "研究助成・支援",
   "Talks & activities": "講演・活動",
-  "Events & exhibitions": "イベント・展示",
-  "Media & interviews": "メディア・インタビュー",
   "Back to top": "ページ上部へ"
 };
 

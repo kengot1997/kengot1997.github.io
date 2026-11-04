@@ -106,7 +106,7 @@ const toEnglish = {
   "メンバー：三浦 幸恵、筒井彩華、田中賢吾": "Members: Yukie Miura, Ayaka Tsutsui, Kengo Tanaka",
   "100万円": "JPY 1,000,000",
   "2025年度・2年間": "FY2025, 2 years",
-  "世界網膜の日2026 受賞講演": "Award lecture, World Retina Day 2026",
+  "世界網膜の日2026 受賞講演 ↗": "Award lecture, World Retina Day 2026 ↗",
   "筑波大学 情報学学位プログラム説明会 学生スピーカー": "Student speaker, Informatics program information session, University of Tsukuba",
   "SIGGRAPH 2023 Birds of a Feather on GenAI — NVIDIA 社主催": "SIGGRAPH 2023 Birds of a Feather on GenAI — hosted by NVIDIA",
   "「ちがい」×AI ～さわって、ためして、研究者とはなそう！ — Low Vision Kick Boxing 展示 ↗": "Difference × AI: Touch, Try, and Talk with Researchers — Low Vision Kick Boxing exhibition ↗",

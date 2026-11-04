@@ -80,7 +80,6 @@ const toEnglish = {
   "「生成AIを活用したロービジョン者の運動時空間認知支援基盤の構築」": "“Support for Movement and Spatiotemporal Awareness of People with Low Vision Using Generative AI”",
   "ユニベール財団 研究助成": "Univers Foundation Research Grant",
   "「視覚障害者の科学館・博物館鑑賞におけるガラス越し展示物の探索支援」": "Support for Exploring Exhibits Behind Glass in Museums and Science Centers for Visitors with Visual Impairments",
-  "メンバー：田中賢吾": "Member: Kengo Tanaka",
   "80万円": "JPY 800,000",
   "つくばマラソン「マラソンを科学する」支援事業 ↗": "Tsukuba Marathon Science Support Program ↗",
   "「AI による視覚障碍者ランナーの景色共有を科学する」": "“Investigating AI-Based Scenery Sharing for Runners with Visual Impairments”",

@@ -175,7 +175,7 @@ function setLanguage(language) {
   for (const item of images) {
     item.img.alt = currentLanguage === "en" ? (altEnglish[item.alt] || item.alt) : item.alt;
   }
-  document.title = currentLanguage === "en" ? "Kengo Tanaka | Research & Works" : "田中賢吾 | 研究・業績";
+  document.title = currentLanguage === "en" ? "Kengo Tanaka" : "田中賢吾";
   metaDescription.content = currentLanguage === "en"
     ? "Profile, research projects, publications, awards, and CV of Kengo Tanaka."
     : "Kengo Tanakaのプロフィール、研究プロジェクト、論文、経歴、受賞歴。";

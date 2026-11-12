@@ -112,6 +112,11 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
 .grants-list li { grid-template-columns: 50px 1fr; }
 .grants-list .grant-details { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin-top: 4px; }
 .grants-list .grant-amount { color: var(--text); font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.4; }
+.hobby-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+.hobby-item { border-top: 1px solid var(--line); padding-top: 14px; }
+.hobby-item h3 { margin: 0 0 8px; font-size: 18px; }
+.hobby-item p { margin: 0 0 8px; font-size: 14px; }
+.hobby-item a { font-size: 14px; }
 .site-footer { padding: 28px 0 40px; color: var(--muted); font-size: 12px; }
 .site-footer .wrap { display: flex; justify-content: space-between; gap: 20px; }
 @media (max-width: 700px) {
@@ -123,7 +128,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
   .page-layout { display: block; width: min(100% - 32px, 980px); }
   .sidebar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; top: 58px; z-index: 20; margin-top: 0; padding: 9px 0; background: var(--surface); border-bottom: 1px solid var(--line); }
   .sidebar-photo, .sidebar-identity { display: none; }
-  .site-nav { flex: 1 0 100%; min-width: 0; flex-direction: row; gap: 18px; overflow-x: auto; scrollbar-width: thin; }
+  .site-nav { flex: 1 0 100%; min-width: 0; flex-direction: row; gap: 10px; overflow-x: auto; scrollbar-width: thin; }
   .site-nav a { flex: none; font-size: 13px; white-space: nowrap; }
   .sidebar-external-links { flex-direction: row; gap: 4px; margin-top: 0; }
   .sidebar-external-link { min-height: 30px; gap: 4px; padding: 4px; font-size: 11px; }
@@ -144,5 +149,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
   .bio-list li { grid-template-columns: 1fr; gap: 2px; }
   .awards-list li { grid-template-columns: 24px 1fr; }
   .grants-list li { grid-template-columns: 42px 1fr; }
+  .hobby-grid { grid-template-columns: 1fr; gap: 24px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

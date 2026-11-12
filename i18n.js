@@ -5,6 +5,7 @@ const toJapanese = {
   "Research Projects": "研究プロジェクト",
   "Publications": "論文・発表",
   "Resume / CV": "経歴・受賞",
+  "Hobby": "趣味",
   "Ph.D. Student, University of Tsukuba": "筑波大学大学院 博士後期課程",
   "Research interests": "研究分野",
   "Bio": "略歴",
@@ -116,7 +117,14 @@ const toEnglish = {
   "東京タワー スポーツチャレンジ2024 — Low Vision Boxing ↗": "Tokyo Tower Sports Challenge 2024 — Low Vision Boxing ↗",
   "主催：NPO日本未来基金": "Organized by Japan Future Foundation (NPO)",
   "【ゼロワン】世界初！視覚障がい者のためのキックボクシング試合が開催　グローブにLED — 東スポWEB ↗": "World-first kickboxing match for visually impaired athletes, with LED gloves — Tokyo Sports Web ↗",
-  "【め #38】弱視者のスポーツアクセシビリティの拡大「Low Vision Boxing」 ↗": "Me #38: Expanding sports accessibility for people with low vision — Low Vision Boxing ↗"
+  "【め #38】弱視者のスポーツアクセシビリティの拡大「Low Vision Boxing」 ↗": "Me #38: Expanding sports accessibility for people with low vision — Low Vision Boxing ↗",
+  "温泉・サウナ": "Hot springs & saunas",
+  "温泉とサウナを巡るのが好きです。": "I enjoy visiting hot springs and saunas.",
+  "訪れたサウナマップ ↗": "Saunas I've visited ↗",
+  "旅行": "Travel",
+  "いろいろな土地を旅するのが好きです。": "I enjoy exploring different places.",
+  "空手": "Karate",
+  "黒帯二段。全国大会での優勝経験があります。": "Second-degree black belt and a national tournament winner."
 };
 
 const altEnglish = {

@@ -176,6 +176,10 @@ function setLanguage(language) {
     item.img.alt = currentLanguage === "en" ? (altEnglish[item.alt] || item.alt) : item.alt;
   }
   document.title = currentLanguage === "en" ? "Kengo Tanaka" : "田中賢吾";
+  document.querySelectorAll(".portrait-trigger").forEach((button) => {
+    button.setAttribute("aria-label", currentLanguage === "en"
+      ? "Play magic portrait animation" : "魔法のポートレートアニメーションを再生");
+  });
   metaDescription.content = currentLanguage === "en"
     ? "Profile, research projects, publications, awards, and CV of Kengo Tanaka."
     : "Kengo Tanakaのプロフィール、研究プロジェクト、論文、経歴、受賞歴。";

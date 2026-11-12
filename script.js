@@ -36,9 +36,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
     const glows = [
       '159, 112, 255', // Violet
       '75, 199, 255',  // Cyan
-      '238, 112, 188', // Pink
-      '230, 168, 71',  // Amber
-      '66, 189, 169'   // Mint
+      '211, 153, 218'  // Soft pink
     ].map(makeGlow);
 
     const addTrailSparks = (fromX, fromY, toX, toY, now, scroll = false) => {
@@ -56,13 +54,14 @@ if (window.matchMedia('(pointer: fine)').matches) {
         const position = (i + Math.random()) / count;
         const side = Math.random() < .5 ? -1 : 1;
         const spread = side * (10 + Math.random() * 26);
+        const tint = Math.random();
         sparks.push({
           x: fromX + dx * position + normalX * side * Math.random() * 5,
           y: fromY + dy * position + normalY * side * Math.random() * 5,
           vx: normalX * spread + tangentX * (scroll ? 7 : 11),
           vy: normalY * spread + tangentY * (scroll ? 7 : 11),
           radius: .6 + Math.random() * .7,
-          color: Math.floor(Math.random() * glows.length),
+          color: tint < .44 ? 0 : tint < .88 ? 1 : 2,
           trail: true,
           life: 470 + Math.random() * 320,
           time: now
@@ -159,7 +158,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
           vx: Math.cos(angle) * (18 + Math.random() * 30),
           vy: Math.sin(angle) * (18 + Math.random() * 30) - 12,
           radius: 1.5 + Math.random() * 1.5,
-          color: i % glows.length,
+          color: i % 8 === 0 ? 2 : i % 2,
           trail: false,
           life: 1250,
           time: now

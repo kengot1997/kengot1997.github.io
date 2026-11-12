@@ -115,6 +115,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
 .hobby-list { border-top: 1px solid var(--line); }
 .hobby-item { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--line); }
 .hobby-item h3 { margin: 0; font-size: 18px; }
+.hobby-icon { display: inline-block; min-width: 1.5em; }
 .hobby-body p { margin: 0 0 8px; font-size: 14px; }
 .hobby-body a { font-size: 14px; }
 .destination-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 12px 0 0; list-style: none; }

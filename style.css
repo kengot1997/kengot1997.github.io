@@ -157,6 +157,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
   .sidebar-external-link img, .sidebar-external-link svg, .linkedin-mark { width: 20px; height: 20px; }
   .control-group button { padding: 5px 6px; }
   .effect-name { display: none; }
+  .magic-trace { z-index: 25; }
   .section { padding: 42px 0 48px; }
   .profile-section { padding-top: 45px; }
   .profile-photo { display: block; margin-bottom: 24px; }

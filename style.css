@@ -44,7 +44,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
 .site-header .wrap { width: min(100% - 48px, 1240px); }
 .header-inner { min-height: 70px; display: flex; align-items: center; gap: 20px; }
 .site-name { color: var(--text); font-size: 18px; font-weight: 700; white-space: nowrap; }
-.magic-trace { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
+.magic-trace { position: fixed; inset: 0; z-index: 25; width: 100%; height: 100%; pointer-events: none; }
 .page-layout { position: relative; z-index: 1; width: min(100% - 48px, 1240px); margin-inline: auto; display: grid; grid-template-columns: 176px minmax(0, 1fr); gap: 48px; }
 .page-layout main { min-width: 0; }
 .sidebar { position: sticky; top: 100px; align-self: start; margin-top: 60px; }
@@ -157,7 +157,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
   .sidebar-external-link img, .sidebar-external-link svg, .linkedin-mark { width: 20px; height: 20px; }
   .control-group button { padding: 5px 6px; }
   .effect-name { display: none; }
-  .magic-trace { z-index: 25; }
   .section { padding: 42px 0 48px; }
   .profile-section { padding-top: 45px; }
   .profile-photo { display: block; margin-bottom: 24px; }

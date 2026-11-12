@@ -119,7 +119,7 @@ const toEnglish = {
   "【ゼロワン】世界初！視覚障がい者のためのキックボクシング試合が開催　グローブにLED — 東スポWEB ↗": "World-first kickboxing match for visually impaired athletes, with LED gloves — Tokyo Sports Web ↗",
   "【め #38】弱視者のスポーツアクセシビリティの拡大「Low Vision Boxing」 ↗": "Me #38: Expanding sports accessibility for people with low vision — Low Vision Boxing ↗",
   "温泉・サウナ": "Hot springs & saunas",
-  "温泉とサウナを巡るのが好きです。": "I enjoy visiting hot springs and saunas.",
+  "湯とサウナを巡る、研究室外のフィールドワーク。": "Fieldwork beyond the lab: hot springs and saunas.",
   "訪れたサウナマップ ↗": "Saunas I've visited ↗",
   "旅行": "Travel",
   "訪れた国・地域": "Countries and regions visited",
@@ -146,7 +146,7 @@ const toEnglish = {
   "オーストリア": "Austria",
   "フィリピン": "Philippines",
   "空手": "Karate",
-  "4歳で空手を始め、現在は黒帯二段。全国大会での優勝経験があります。": "I started karate at age four, hold a second-degree black belt, and have won a national tournament."
+  "4歳で始めて、気づけば黒帯二段。全国大会で優勝したことも。": "Karate since age four. Somewhere along the way: a second-degree black belt and a national tournament win."
 };
 
 const altEnglish = {

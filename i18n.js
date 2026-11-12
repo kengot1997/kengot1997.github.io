@@ -118,7 +118,7 @@ const toEnglish = {
   "主催：NPO日本未来基金": "Organized by Japan Future Foundation (NPO)",
   "【ゼロワン】世界初！視覚障がい者のためのキックボクシング試合が開催　グローブにLED — 東スポWEB ↗": "World-first kickboxing match for visually impaired athletes, with LED gloves — Tokyo Sports Web ↗",
   "【め #38】弱視者のスポーツアクセシビリティの拡大「Low Vision Boxing」 ↗": "Me #38: Expanding sports accessibility for people with low vision — Low Vision Boxing ↗",
-  "温泉・サウナ": "Hot springs & saunas",
+  "温泉": "Hot springs",
   "湯とサウナを巡る、研究室外のフィールドワーク。": "Fieldwork beyond the lab: hot springs and saunas.",
   "訪れたサウナマップ ↗": "Saunas I've visited ↗",
   "旅行": "Travel",
@@ -146,7 +146,7 @@ const toEnglish = {
   "オーストリア": "Austria",
   "フィリピン": "Philippines",
   "空手": "Karate",
-  "4歳で始めた空手とは長い付き合い。黒帯二段。その昔、全国大会で優勝したことも。": "Karate has been part of life since age four. Second-degree black belt. Once upon a time, I even won a national tournament."
+  "4歳で始めた空手。黒帯二段。その昔、全国大会で優勝したことも。": "Karate since age four. Second-degree black belt. Once upon a time, I even won a national tournament."
 };
 
 const altEnglish = {
@@ -160,7 +160,10 @@ const altEnglish = {
   "「HI」の文字が写る透明なアクリル板と超音波加工装置": "Transparent acrylic sheet showing the letters HI beside the ultrasonic embossing setup",
   "触覚グラフィックスを印刷した絵本に手で触れている様子": "Hands exploring a picture book printed with tactile graphics",
   "タブレットで披露宴の映像を見る新郎": "A groom viewing the wedding reception on a tablet",
-  "リング状のラケットの中央を飛ぶドローン": "A drone flying through a ring-shaped racket"
+  "リング状のラケットの中央を飛ぶドローン": "A drone flying through a ring-shaped racket",
+  "空手道場で道着姿の仲間と並ぶ写真": "A group of karate practitioners together at a dojo",
+  "足湯の前に座る田中賢吾": "Kengo Tanaka sitting beside a footbath",
+  "9と4分の3番線の看板の前でカートと写る田中賢吾": "Kengo Tanaka with a luggage trolley beneath the Platform 9¾ sign"
 };
 
 const translatableNodes = [];
@@ -177,7 +180,7 @@ while ((node = walker.nextNode())) {
   });
 }
 
-const images = [...document.querySelectorAll(".project-entry img, .portrait-media img")].map((img) => ({ img, alt: img.alt }));
+const images = [...document.querySelectorAll(".project-entry img, .portrait-media img, .hobby-item img")].map((img) => ({ img, alt: img.alt }));
 const languageButtons = [...document.querySelectorAll("button[data-language]")];
 const themeButtons = [...document.querySelectorAll("button[data-theme]")];
 const metaDescription = document.querySelector('meta[name="description"]');

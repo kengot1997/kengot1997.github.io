@@ -112,9 +112,10 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
 .grants-list li { grid-template-columns: 50px 1fr; }
 .grants-list .grant-details { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin-top: 4px; }
 .grants-list .grant-amount { color: var(--text); font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.4; }
-.hobby-list { border-top: 1px solid var(--line); }
-.hobby-item { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.hobby-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
+.hobby-item { display: flex; flex-direction: column; gap: 10px; min-width: 0; padding-top: 14px; border-top: 1px solid var(--line); }
 .hobby-item h3 { margin: 0; font-size: 18px; }
+.hobby-item > img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: var(--image-surface); }
 .hobby-icon { display: inline-block; min-width: 1.5em; }
 .hobby-body p { margin: 0 0 8px; font-size: 14px; }
 .hobby-body a { font-size: 14px; }
@@ -157,6 +158,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
   .bio-list li { grid-template-columns: 1fr; gap: 2px; }
   .awards-list li { grid-template-columns: 24px 1fr; }
   .grants-list li { grid-template-columns: 42px 1fr; }
-  .hobby-item { grid-template-columns: 1fr; gap: 8px; }
+  .hobby-list { grid-template-columns: 1fr; gap: 24px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

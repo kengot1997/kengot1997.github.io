@@ -3,11 +3,12 @@ document.getElementById('copyright-year').textContent = new Date().getFullYear()
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let releaseMagic = () => {};
 let clearMagic = () => {};
-let effectsEnabled = true;
-try { effectsEnabled = localStorage.getItem('kengo-effects') !== 'off'; } catch (error) { /* Storage may be unavailable. */ }
-const canAnimate = () => effectsEnabled && !reducedMotion.matches;
+let effectsPreference = null;
+try { effectsPreference = localStorage.getItem('kengo-effects'); } catch (error) { /* Storage may be unavailable. */ }
+let effectsEnabled = effectsPreference === 'on' || (effectsPreference !== 'off' && !reducedMotion.matches);
+const canAnimate = () => effectsEnabled;
 
-if (window.matchMedia('(pointer: fine), (pointer: coarse)').matches) {
+if ('HTMLCanvasElement' in window) {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
   if (context) {
@@ -177,31 +178,57 @@ if (window.matchMedia('(pointer: fine), (pointer: coarse)').matches) {
       context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     };
 
-    window.addEventListener('touchstart', (event) => {
-      if (!canAnimate() || activeTouch || event.touches.length !== 1) return;
-      const touch = event.changedTouches[0];
-      activeTouch = { id: touch.identifier, x: touch.clientX, y: touch.clientY };
+    const beginTouch = (source, id, x, y) => {
+      activeTouch = { source, id, x, y };
       lastTouchBurst = performance.now();
-      addTouchSparks(activeTouch.x, activeTouch.y, lastTouchBurst);
+      addTouchSparks(x, y, lastTouchBurst);
       scheduleDraw();
-    }, { passive: true });
+    };
 
-    window.addEventListener('touchmove', (event) => {
-      if (!canAnimate() || !activeTouch) return;
+    const moveTouch = (x, y) => {
+      const distance = Math.hypot(x - activeTouch.x, y - activeTouch.y);
+      const previousX = activeTouch.x;
+      const previousY = activeTouch.y;
+      activeTouch.x = x;
+      activeTouch.y = y;
+      if (distance >= 2) addTrailSparks(previousX, previousY, x, y, performance.now());
+    };
+
+    document.addEventListener('pointerdown', (event) => {
+      if (canAnimate() && event.pointerType === 'touch' && !activeTouch) {
+        beginTouch('pointer', event.pointerId, event.clientX, event.clientY);
+      }
+    }, { passive: true, capture: true });
+
+    document.addEventListener('touchstart', (event) => {
+      if (!canAnimate() || event.touches.length !== 1) return;
+      const touch = event.changedTouches[0];
+      if (activeTouch && activeTouch.source === 'pointer') {
+        activeTouch = { source: 'touch', id: touch.identifier, x: touch.clientX, y: touch.clientY };
+      } else if (!activeTouch) {
+        beginTouch('touch', touch.identifier, touch.clientX, touch.clientY);
+      }
+    }, { passive: true, capture: true });
+
+    document.addEventListener('touchmove', (event) => {
+      if (!canAnimate() || !activeTouch || activeTouch.source !== 'touch') return;
       const touch = Array.from(event.changedTouches).find((item) => item.identifier === activeTouch.id);
       if (!touch) return;
-      const { x, y } = activeTouch;
-      activeTouch.x = touch.clientX;
-      activeTouch.y = touch.clientY;
-      const distance = Math.hypot(touch.clientX - x, touch.clientY - y);
-      if (distance >= 2) addTrailSparks(x, y, touch.clientX, touch.clientY, performance.now());
-    }, { passive: true });
+      moveTouch(touch.clientX, touch.clientY);
+    }, { passive: true, capture: true });
 
     const endTouch = (event) => {
-      if (activeTouch && Array.from(event.changedTouches).some((item) => item.identifier === activeTouch.id)) activeTouch = null;
+      if (activeTouch && activeTouch.source === 'touch' &&
+          Array.from(event.changedTouches).some((item) => item.identifier === activeTouch.id)) activeTouch = null;
     };
-    window.addEventListener('touchend', endTouch, { passive: true });
-    window.addEventListener('touchcancel', endTouch, { passive: true });
+    document.addEventListener('touchend', endTouch, { passive: true, capture: true });
+    document.addEventListener('touchcancel', endTouch, { passive: true, capture: true });
+
+    const endPointerTouch = (event) => {
+      if (activeTouch && activeTouch.source === 'pointer' && activeTouch.id === event.pointerId) activeTouch = null;
+    };
+    document.addEventListener('pointerup', endPointerTouch, { passive: true, capture: true });
+    document.addEventListener('pointercancel', endPointerTouch, { passive: true, capture: true });
 
     window.addEventListener('click', (event) => {
       if (!canAnimate() || event.detail === 0) return;
@@ -211,7 +238,13 @@ if (window.matchMedia('(pointer: fine), (pointer: coarse)').matches) {
     }, { passive: true });
 
     window.addEventListener('pointermove', (event) => {
-      if (!canAnimate() || event.pointerType === 'touch') return;
+      if (!canAnimate()) return;
+      if (event.pointerType === 'touch') {
+        if (activeTouch && activeTouch.source === 'pointer' && activeTouch.id === event.pointerId) {
+          moveTouch(event.clientX, event.clientY);
+        }
+        return;
+      }
       pointerPosition = { x: event.clientX, y: event.clientY };
       const now = performance.now();
       const last = previousPointerPosition;
@@ -327,19 +360,25 @@ const syncEffectToggle = () => {
 };
 effectToggle.addEventListener('click', () => {
   effectsEnabled = !effectsEnabled;
-  try { localStorage.setItem('kengo-effects', effectsEnabled ? 'on' : 'off'); } catch (error) { /* Storage may be unavailable. */ }
+  effectsPreference = effectsEnabled ? 'on' : 'off';
+  try { localStorage.setItem('kengo-effects', effectsPreference); } catch (error) { /* Storage may be unavailable. */ }
   if (!effectsEnabled) {
     clearMagic();
     stopPortraits.forEach((stop) => stop());
   }
   syncEffectToggle();
 });
-reducedMotion.addEventListener('change', () => {
-  if (reducedMotion.matches) {
+const syncReducedMotion = () => {
+  if (effectsPreference !== null) return;
+  effectsEnabled = !reducedMotion.matches;
+  if (!effectsEnabled) {
     clearMagic();
     stopPortraits.forEach((stop) => stop());
   }
-});
+  syncEffectToggle();
+};
+if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', syncReducedMotion);
+else reducedMotion.addListener(syncReducedMotion);
 document.addEventListener('languagechange', syncEffectToggle);
 syncEffectToggle();
 

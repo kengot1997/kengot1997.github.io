@@ -11,11 +11,10 @@ if (window.matchMedia('(pointer: fine)').matches) {
     canvas.setAttribute('aria-hidden', 'true');
     document.body.appendChild(canvas);
 
-    const trail = [];
     const sparks = [];
-    const trailLife = 800;
     let frame = 0;
     let pointerPosition = null;
+    let previousPointerPosition = null;
     let lastScrollY = window.scrollY;
 
     const makeGlow = (color) => {
@@ -67,59 +66,32 @@ if (window.matchMedia('(pointer: fine)').matches) {
       canvas.width = Math.round(window.innerWidth * scale);
       canvas.height = Math.round(window.innerHeight * scale);
       context.setTransform(scale, 0, 0, scale, 0, 0);
-      trail.length = 0;
       sparks.length = 0;
+      previousPointerPosition = null;
       lastScrollY = window.scrollY;
     };
 
     const draw = (now) => {
       frame = 0;
       context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      while (trail.length && now - trail[0].time > trailLife) trail.shift();
       for (let i = sparks.length - 1; i >= 0; i--) {
         if (now - sparks[i].time > sparks[i].life) sparks.splice(i, 1);
       }
 
       if (!reducedMotion.matches) {
         const dark = document.documentElement.dataset.theme === 'dark';
-        if (trail.length > 1) {
-          const strength = Math.max(0, 1 - (now - trail[trail.length - 1].time) / trailLife);
-          context.save();
-          context.beginPath();
-          context.moveTo(trail[0].x, trail[0].y);
-          for (let i = 1; i < trail.length - 1; i++) {
-            const point = trail[i];
-            const next = trail[i + 1];
-            context.quadraticCurveTo(point.x, point.y, (point.x + next.x) / 2, (point.y + next.y) / 2);
-          }
-          const tip = trail[trail.length - 1];
-          context.lineTo(tip.x, tip.y);
-          context.lineCap = 'round';
-          context.lineJoin = 'round';
-          context.shadowColor = dark ? '#9c83ff' : '#8e80ee';
-          context.shadowBlur = 15;
-          context.strokeStyle = `rgba(112, 113, 242, ${strength * (dark ? .22 : .17)})`;
-          context.lineWidth = 10;
-          context.stroke();
-          context.shadowBlur = 7;
-          context.strokeStyle = `rgba(112, 113, 242, ${strength * (dark ? .72 : .55)})`;
-          context.lineWidth = 4;
-          context.stroke();
-          context.restore();
-        }
-
         for (const spark of sparks) {
           const progress = Math.min(1, (now - spark.time) / spark.life);
           const x = spark.x + spark.vx * progress;
           const y = spark.y + spark.vy * progress;
-          const alpha = (1 - progress) * (spark.trail ? (dark ? .75 : .62) : (dark ? .8 : .65));
-          const size = spark.trail ? 5 + spark.radius * 4 : 12 + spark.radius * 5;
+          const alpha = (1 - progress) * (spark.trail ? (dark ? .85 : .78) : (dark ? .8 : .65));
+          const size = spark.trail ? 6 + spark.radius * 5 : 12 + spark.radius * 5;
           context.globalAlpha = alpha;
           context.drawImage(glows[spark.blue ? 1 : 0], x - size / 2, y - size / 2, size, size);
         }
         context.globalAlpha = 1;
       }
-      if (trail.length || sparks.length) frame = requestAnimationFrame(draw);
+      if (sparks.length) frame = requestAnimationFrame(draw);
     };
 
     const scheduleDraw = () => {
@@ -129,17 +101,12 @@ if (window.matchMedia('(pointer: fine)').matches) {
     window.addEventListener('pointermove', (event) => {
       if (reducedMotion.matches || event.pointerType === 'touch') return;
       pointerPosition = { x: event.clientX, y: event.clientY };
-      const last = trail[trail.length - 1];
-      const distance = last ? Math.hypot(event.clientX - last.x, event.clientY - last.y) : Infinity;
-      if (distance > 100) {
-        trail.length = 0;
-      }
-      if (distance < 2) return;
       const now = performance.now();
-      trail.push({ x: event.clientX, y: event.clientY, time: now });
-      if (trail.length > 28) trail.shift();
-      if (last && distance <= 100) addTrailSparks(last.x, last.y, event.clientX, event.clientY, now);
-      scheduleDraw();
+      const last = previousPointerPosition;
+      previousPointerPosition = { x: event.clientX, y: event.clientY, time: now };
+      if (!last || now - last.time > 160) return;
+      const distance = Math.hypot(event.clientX - last.x, event.clientY - last.y);
+      if (distance >= 2 && distance <= 100) addTrailSparks(last.x, last.y, event.clientX, event.clientY, now);
     }, { passive: true });
 
     window.addEventListener('scroll', () => {
@@ -152,7 +119,10 @@ if (window.matchMedia('(pointer: fine)').matches) {
       addTrailSparks(x, y - direction * length, x, y, performance.now(), true);
     }, { passive: true });
 
-    document.addEventListener('pointerleave', () => { pointerPosition = null; });
+    document.addEventListener('pointerleave', () => {
+      pointerPosition = null;
+      previousPointerPosition = null;
+    });
 
     releaseMagic = (portrait) => {
       if (reducedMotion.matches) return;
@@ -181,9 +151,9 @@ if (window.matchMedia('(pointer: fine)').matches) {
     window.addEventListener('resize', resizeCanvas, { passive: true });
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
-        trail.length = 0;
         sparks.length = 0;
         pointerPosition = null;
+        previousPointerPosition = null;
       }
     });
     resizeCanvas();

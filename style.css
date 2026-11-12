@@ -31,6 +31,12 @@ a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
 :root[data-theme="dark"] a { text-decoration: underline; text-underline-offset: 3px; }
+:root[data-theme="dark"] .site-name,
+:root[data-theme="dark"] .project-entry h3 a { text-decoration: none; }
+:root[data-theme="dark"] .site-name:hover,
+:root[data-theme="dark"] .site-name:focus-visible,
+:root[data-theme="dark"] .project-entry h3 a:hover,
+:root[data-theme="dark"] .project-entry h3 a:focus-visible { text-decoration: underline; }
 .wrap { width: min(100% - 48px, 980px); margin-inline: auto; }
 .skip-link { position: fixed; top: -60px; left: 16px; z-index: 100; padding: 8px 12px; background: var(--surface); }
 .skip-link:focus { top: 8px; }

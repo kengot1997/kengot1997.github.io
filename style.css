@@ -118,7 +118,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
 .hobby-icon { display: inline-block; min-width: 1.5em; }
 .hobby-body p { margin: 0 0 8px; font-size: 14px; }
 .hobby-body a { font-size: 14px; }
-.destination-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 12px 0 0; list-style: none; }
+.destination-groups { display: grid; gap: 15px; margin-top: 12px; }
+.destination-group h4 { margin: 0 0 6px; color: var(--muted); font-size: 13px; font-weight: 600; }
+.destination-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
 .destination-list li { padding: 4px 10px; border-radius: 999px; background: var(--image-surface); font-size: 13px; line-height: 1.5; }
 .site-footer { padding: 28px 0 40px; color: var(--muted); font-size: 12px; }
 .site-footer .wrap { display: flex; justify-content: space-between; gap: 20px; }

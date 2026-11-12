@@ -33,7 +33,13 @@ if (window.matchMedia('(pointer: fine)').matches) {
       glowContext.fillRect(0, 0, 32, 32);
       return glow;
     };
-    const glows = [makeGlow('159, 112, 255'), makeGlow('75, 199, 255')];
+    const glows = [
+      '159, 112, 255', // Violet
+      '75, 199, 255',  // Cyan
+      '238, 112, 188', // Pink
+      '230, 168, 71',  // Amber
+      '66, 189, 169'   // Mint
+    ].map(makeGlow);
 
     const addTrailSparks = (fromX, fromY, toX, toY, now, scroll = false) => {
       if (!canAnimate()) return;
@@ -45,24 +51,24 @@ if (window.matchMedia('(pointer: fine)').matches) {
       const tangentY = dy / distance;
       const normalX = -tangentY;
       const normalY = tangentX;
-      const count = Math.min(32, Math.max(scroll ? 10 : 4, Math.ceil(distance / 3.5)));
+      const count = Math.min(56, Math.max(scroll ? 18 : 8, Math.ceil(distance / 2.4)));
       for (let i = 0; i < count; i++) {
         const position = (i + Math.random()) / count;
         const side = Math.random() < .5 ? -1 : 1;
-        const spread = side * (8 + Math.random() * 20);
+        const spread = side * (10 + Math.random() * 26);
         sparks.push({
-          x: fromX + dx * position + normalX * side * Math.random() * 3,
-          y: fromY + dy * position + normalY * side * Math.random() * 3,
+          x: fromX + dx * position + normalX * side * Math.random() * 5,
+          y: fromY + dy * position + normalY * side * Math.random() * 5,
           vx: normalX * spread + tangentX * (scroll ? 7 : 11),
           vy: normalY * spread + tangentY * (scroll ? 7 : 11),
           radius: .6 + Math.random() * .7,
-          blue: Math.random() < .5,
+          color: Math.floor(Math.random() * glows.length),
           trail: true,
           life: 470 + Math.random() * 320,
           time: now
         });
       }
-      if (sparks.length > 240) sparks.splice(0, sparks.length - 240);
+      if (sparks.length > 380) sparks.splice(0, sparks.length - 380);
       scheduleDraw();
     };
 
@@ -92,7 +98,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
           const alpha = (1 - progress) * (spark.trail ? (dark ? .85 : .78) : (dark ? .8 : .65));
           const size = spark.trail ? 6 + spark.radius * 5 : 12 + spark.radius * 5;
           context.globalAlpha = alpha;
-          context.drawImage(glows[spark.blue ? 1 : 0], x - size / 2, y - size / 2, size, size);
+          context.drawImage(glows[spark.color], x - size / 2, y - size / 2, size, size);
         }
         context.globalAlpha = 1;
       }
@@ -153,7 +159,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
           vx: Math.cos(angle) * (18 + Math.random() * 30),
           vy: Math.sin(angle) * (18 + Math.random() * 30) - 12,
           radius: 1.5 + Math.random() * 1.5,
-          blue: i % 2 === 0,
+          color: i % glows.length,
           trail: false,
           life: 1250,
           time: now

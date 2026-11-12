@@ -122,7 +122,7 @@ const toEnglish = {
   "温泉とサウナを巡るのが好きです。": "I enjoy visiting hot springs and saunas.",
   "訪れたサウナマップ ↗": "Saunas I've visited ↗",
   "旅行": "Travel",
-  "訪れた国・地域（16カ国・2地域）": "Countries and regions visited (16 countries, 2 regions)",
+  "訪れた国・地域": "Countries and regions visited",
   "アジア": "Asia",
   "ヨーロッパ": "Europe",
   "中東・アフリカ": "Middle East & Africa",

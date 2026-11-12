@@ -118,6 +118,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--link); outline-
 .hobby-icon { display: inline-block; min-width: 1.5em; }
 .hobby-body p { margin: 0 0 8px; font-size: 14px; }
 .hobby-body a { font-size: 14px; }
+.travel-details summary { width: fit-content; color: var(--link); font-size: 14px; cursor: pointer; }
+.travel-details summary:hover { text-decoration: underline; }
+.travel-details summary:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
 .destination-groups { display: grid; gap: 15px; margin-top: 12px; }
 .destination-group h4 { margin: 0 0 6px; color: var(--muted); font-size: 13px; font-weight: 600; }
 .destination-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }

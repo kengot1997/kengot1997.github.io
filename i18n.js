@@ -1,5 +1,6 @@
 // Keys are the original text in index.html. Update a key when its source text changes.
 const toJapanese = {
+  "Effect": "エフェクト",
   "Profile": "プロフィール",
   "Projects": "プロジェクト",
   "Research Projects": "研究プロジェクト",
@@ -216,6 +217,7 @@ function setLanguage(language) {
     ? "Profile, research projects, publications, awards, and CV of Kengo Tanaka."
     : "Kengo Tanakaのプロフィール、研究プロジェクト、論文、経歴、受賞歴。";
   document.querySelector(".site-nav").setAttribute("aria-label", currentLanguage === "en" ? "Main navigation" : "メインナビゲーション");
+  document.dispatchEvent(new Event('languagechange'));
   const groups = document.querySelectorAll(".header-controls [role='group']");
   groups[0].setAttribute("aria-label", currentLanguage === "en" ? "Language" : "言語");
   groups[1].setAttribute("aria-label", currentLanguage === "en" ? "Color theme" : "表示色");

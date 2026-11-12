@@ -2,6 +2,10 @@ document.getElementById('copyright-year').textContent = new Date().getFullYear()
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let releaseMagic = () => {};
+let clearMagic = () => {};
+let effectsEnabled = true;
+try { effectsEnabled = localStorage.getItem('kengo-effects') !== 'off'; } catch (error) { /* Storage may be unavailable. */ }
+const canAnimate = () => effectsEnabled && !reducedMotion.matches;
 
 if (window.matchMedia('(pointer: fine)').matches) {
   const canvas = document.createElement('canvas');
@@ -32,6 +36,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
     const glows = [makeGlow('159, 112, 255'), makeGlow('75, 199, 255')];
 
     const addTrailSparks = (fromX, fromY, toX, toY, now, scroll = false) => {
+      if (!canAnimate()) return;
       const dx = toX - fromX;
       const dy = toY - fromY;
       const distance = Math.hypot(dx, dy);
@@ -40,7 +45,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
       const tangentY = dy / distance;
       const normalX = -tangentY;
       const normalY = tangentX;
-      const count = Math.min(24, Math.max(scroll ? 8 : 3, Math.ceil(distance / 5)));
+      const count = Math.min(32, Math.max(scroll ? 10 : 4, Math.ceil(distance / 3.5)));
       for (let i = 0; i < count; i++) {
         const position = (i + Math.random()) / count;
         const side = Math.random() < .5 ? -1 : 1;
@@ -57,7 +62,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
           time: now
         });
       }
-      if (sparks.length > 180) sparks.splice(0, sparks.length - 180);
+      if (sparks.length > 240) sparks.splice(0, sparks.length - 240);
       scheduleDraw();
     };
 
@@ -78,7 +83,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
         if (now - sparks[i].time > sparks[i].life) sparks.splice(i, 1);
       }
 
-      if (!reducedMotion.matches) {
+      if (canAnimate()) {
         const dark = document.documentElement.dataset.theme === 'dark';
         for (const spark of sparks) {
           const progress = Math.min(1, (now - spark.time) / spark.life);
@@ -98,8 +103,17 @@ if (window.matchMedia('(pointer: fine)').matches) {
       if (!frame) frame = requestAnimationFrame(draw);
     };
 
+    clearMagic = () => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+      sparks.length = 0;
+      pointerPosition = null;
+      previousPointerPosition = null;
+      context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    };
+
     window.addEventListener('pointermove', (event) => {
-      if (reducedMotion.matches || event.pointerType === 'touch') return;
+      if (!canAnimate() || event.pointerType === 'touch') return;
       pointerPosition = { x: event.clientX, y: event.clientY };
       const now = performance.now();
       const last = previousPointerPosition;
@@ -112,7 +126,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
     window.addEventListener('scroll', () => {
       const delta = window.scrollY - lastScrollY;
       lastScrollY = window.scrollY;
-      if (reducedMotion.matches || !pointerPosition || !delta) return;
+      if (!canAnimate() || !pointerPosition || !delta) return;
       const { x, y } = pointerPosition;
       const length = Math.min(28, Math.max(8, Math.abs(delta) * .5));
       const direction = Math.sign(delta);
@@ -125,7 +139,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
     });
 
     releaseMagic = (portrait) => {
-      if (reducedMotion.matches) return;
+      if (!canAnimate()) return;
       const rect = portrait.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
@@ -160,12 +174,13 @@ if (window.matchMedia('(pointer: fine)').matches) {
   }
 }
 
+const stopPortraits = [];
 for (const portrait of document.querySelectorAll('.portrait-media')) {
   const video = portrait.querySelector('video');
   let active = false;
 
   const play = () => {
-    if (active) return;
+    if (active || !canAnimate()) return;
     active = true;
     video.currentTime = 0;
     video.play().catch(() => { active = false; });
@@ -178,16 +193,18 @@ for (const portrait of document.querySelectorAll('.portrait-media')) {
     video.currentTime = 0;
     if (wasPlaying) releaseMagic(portrait);
   };
+  stopPortraits.push(stop);
 
   portrait.addEventListener('pointerenter', (event) => {
-    if (event.pointerType === 'mouse' && !reducedMotion.matches) play();
+    if (event.pointerType === 'mouse') play();
   });
   portrait.addEventListener('pointerleave', (event) => {
     if (event.pointerType === 'mouse') stop();
   });
   portrait.addEventListener('blur', stop);
   portrait.addEventListener('click', (event) => {
-    if (event.detail && window.matchMedia('(hover: hover)').matches && !reducedMotion.matches) return;
+    if (!canAnimate()) return;
+    if (event.detail && window.matchMedia('(hover: hover)').matches) return;
     if (active) stop();
     else play();
   });
@@ -196,6 +213,35 @@ for (const portrait of document.querySelectorAll('.portrait-media')) {
     else video.pause();
   });
 }
+
+const effectToggle = document.querySelector('.effect-toggle');
+const syncEffectToggle = () => {
+  const on = effectsEnabled;
+  const english = document.documentElement.lang === 'en';
+  effectToggle.setAttribute('aria-pressed', String(on));
+  effectToggle.setAttribute('aria-label', english
+    ? (on ? 'Turn effects off' : 'Turn effects on')
+    : (on ? 'エフェクトをオフにする' : 'エフェクトをオンにする'));
+  effectToggle.title = `${english ? 'Effects' : 'エフェクト'}: ${on ? 'ON' : 'OFF'}`;
+  effectToggle.lastElementChild.textContent = on ? 'ON' : 'OFF';
+};
+effectToggle.addEventListener('click', () => {
+  effectsEnabled = !effectsEnabled;
+  try { localStorage.setItem('kengo-effects', effectsEnabled ? 'on' : 'off'); } catch (error) { /* Storage may be unavailable. */ }
+  if (!effectsEnabled) {
+    clearMagic();
+    stopPortraits.forEach((stop) => stop());
+  }
+  syncEffectToggle();
+});
+reducedMotion.addEventListener('change', () => {
+  if (reducedMotion.matches) {
+    clearMagic();
+    stopPortraits.forEach((stop) => stop());
+  }
+});
+document.addEventListener('languagechange', syncEffectToggle);
+syncEffectToggle();
 
 const navLinks = [...document.querySelectorAll('.site-nav a')];
 const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);

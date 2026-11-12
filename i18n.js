@@ -147,7 +147,7 @@ while ((node = walker.nextNode())) {
   });
 }
 
-const images = [...document.querySelectorAll(".project-entry img, .profile-photo, .sidebar-photo")].map((img) => ({ img, alt: img.alt }));
+const images = [...document.querySelectorAll(".project-entry img, .portrait-media img")].map((img) => ({ img, alt: img.alt }));
 const languageButtons = [...document.querySelectorAll("button[data-language]")];
 const themeButtons = [...document.querySelectorAll("button[data-theme]")];
 const metaDescription = document.querySelector('meta[name="description"]');
@@ -175,6 +175,9 @@ function setLanguage(language) {
   for (const item of images) {
     item.img.alt = currentLanguage === "en" ? (altEnglish[item.alt] || item.alt) : item.alt;
   }
+  document.querySelectorAll('.portrait-media').forEach((portrait) => {
+    portrait.setAttribute('aria-label', currentLanguage === 'en' ? 'Play portrait video' : 'ポートレートの動画を再生');
+  });
   document.title = currentLanguage === "en" ? "Kengo Tanaka" : "田中賢吾";
   metaDescription.content = currentLanguage === "en"
     ? "Profile, research projects, publications, awards, and CV of Kengo Tanaka."

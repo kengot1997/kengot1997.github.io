@@ -146,7 +146,7 @@ const toEnglish = {
   "オーストリア": "Austria",
   "フィリピン": "Philippines",
   "空手": "Karate",
-  "黒帯二段。全国大会での優勝経験があります。": "Second-degree black belt and a national tournament winner."
+  "4歳で空手を始め、現在は黒帯二段。全国大会での優勝経験があります。": "I started karate at age four, hold a second-degree black belt, and have won a national tournament."
 };
 
 const altEnglish = {
